@@ -65,7 +65,7 @@ function buildTable(data) {
         filteredData = filteredData.filter(row => row.datetime === dateValue);
       }
       else {
-        values += "Filter Date\n"
+        values += "Filter Date\n";
       }
     }
     if (city) {
@@ -74,7 +74,7 @@ function buildTable(data) {
         filteredData = filteredData.filter((row) => row.city === cityValue);
       }
       else {
-        values += "Filter Date\n"
+        values += "Filter City\n";
       }
     }
     if (state) {
@@ -92,7 +92,7 @@ function buildTable(data) {
         filteredData = filteredData.filter((row) => row.country === countryValue);
       }
       else {
-        values += "Filter Country\n"
+        values += "Filter Country\n";
       }
     }
     if(shape) {
@@ -101,7 +101,7 @@ function buildTable(data) {
         filteredData = filteredData.filter((row) => row.shape === shapeValue);
       }
       else {
-        values += "Filter Shape\n"
+        values += "Filter Shape\n";
       }
     }
     
@@ -242,6 +242,15 @@ function buildTable(data) {
     return checkboxes;
   }
 
+  function resetForm() {
+    chkboxes = getCheckboxes();
+    chkboxes.forEach((chk) => chk.checked = false);
+
+    filters = document.getElementById("filters");
+    filters.innerHTML = "";
+
+    buildTable(tableData);
+  }
 // Attach an event to listen for the form button
 checkboxes = getCheckboxes();
 checkboxes.forEach((cb) => d3.selectAll("#"+cb.id).on("click", handleCheck));
@@ -253,3 +262,6 @@ checkboxes.forEach((cb) => cb.checked = false);
 
 filterBtn = document.getElementById("filter-btn");
 d3.selectAll("#filter-btn").on("click", handleClick);
+
+resetBtn = document.getElementById("reset-btn");
+d3.selectAll("#reset-btn").on("click", resetForm);

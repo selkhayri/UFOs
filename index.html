@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="static/css/style.css">
     
     <title>UFO Finder</title>
+
 </head>
 <body class="bg-dark">
   <div class="wrapper">
@@ -39,14 +40,49 @@
       <div class="col-md-3">
         <form class="bg-dark">
           <p>Filter Search</p>
-          <ul class="bg-dark list-group">
-            <li class="bg-dark list-group-item">
-              <label for="date">Enter Date</label>
-              <input type="text" placeholder="1/10/2010" id="datetime" />
+          <div class="row">
+            <div class="col-md-2">
+              <input id="chkDate" type="checkbox">Date</input>
+            </div>
+            <div class="col-md-2">
+              <input id="chkCity" type="checkbox">City</input>
+            </div>
+            <div class="col-md-2">
+              <input id="chkState" type="checkbox">State</input>
+            </div>
+            <div class="col-md-3">
+              <input id="chkCountry" type="checkbox">Country</input>
+            </div>
+            <div class="col-md-2">
+              <input id="chkShape" type="checkbox">Shape</input>
+            </div>
+          </div>
+          <div class="row">
+            <button id="filter-btn" type="button" class="btn btn-dark">Filter Data</button>
+          </div>
+          <ul class="bg-dark list-group" id="filters">
+            <!-- li id="filterByDate">
+              <ul>
+                <li class="bg-dark list-group-item" >
+                  <label for="date">Enter Date</label>
+                  <input type="text" placeholder="1/10/2010" id="filterDate" />
+                </li>
+                <li class="bg-dark list-group-item">
+                  <button id="filter-btn" type="button" class="btn btn-dark">Filter Date</button>
+                </li>
+              </ul>
             </li>
-            <li class="bg-dark list-group-item">
-              <button id="filter-btn" type="button" class="btn btn-dark">Filter Table</button>
-            </li>
+            <li id="filterByCity">
+              <ul>
+                <li class="bg-dark list-group-item" >
+                  <label for="date">Enter City</label>
+                  <input type="text" placeholder="1/10/2010" id="filterCity" />
+                </li>
+                <li class="bg-dark list-group-item">
+                  <button id="filter-btn" type="button" class="btn btn-dark">Filter Table</button>
+                </li>
+              </ul>
+            </li -->
           </ul>
             
         </form>

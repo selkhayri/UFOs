@@ -25,56 +25,95 @@ function buildTable(data) {
   }
 
   function handleClick() {
-    // console.log("CLICK!!");
-    // Grab the datetime value from the filter
+    if (allUnchecked()) {
+      alert("Please specify filter values!");
+      return;
+    }
+
+    // Grab the filter values
     if (document.getElementById("filterDate")) {
-      var date = d3.select("#filterDate"); // .property("value");
+      var date = d3.select("#filterDate"); 
     }
+
     if (document.getElementById("filterCity")) {
-      var city = d3.select("#filterCity"); // .property("value");
+      var city = d3.select("#filterCity"); 
     }
+
     if (document.getElementById("filterState")) {
-      var state = d3.select("#filterState"); // .property("value");
+      var state = d3.select("#filterState"); 
     }
+
     if (document.getElementById("filterCountry")) {
-      var country = d3.select("#filterCountry"); // .property("value");
+      var country = d3.select("#filterCountry"); 
     }
+
     if (document.getElementById("filterShape")) {
-      var shape = d3.select("#filterShape"); // .property("value");
+      var shape = d3.select("#filterShape"); 
     }
 
     let filteredData = tableData;
-    
+    let missing = "Missing Values:\n";
+    let values = "";
      // Check to see if a date was entered and filter the
     // data using that date.
     if (date) {
       console.log(date);
-      date = date.property("value");
+      let dateValue = date.property("value");
       // Apply `filter` to the table data to only keep the
       // rows where the `datetime` value matches the filter value
-      filteredData = filteredData.filter(row => row.datetime === date);
+      if (dateValue != "") {
+        filteredData = filteredData.filter(row => row.datetime === dateValue);
+      }
+      else {
+        values += "Filter Date\n"
+      }
     }
     if (city) {
-      city = city.property("value");
-      filteredData = filteredData.filter((row) => row.city === city);
+      let cityValue = city.property("value");
+      if (cityValue != "") {
+        filteredData = filteredData.filter((row) => row.city === cityValue);
+      }
+      else {
+        values += "Filter Date\n"
+      }
     }
     if (state) {
-      state = state.property("value");
-      filteredData = filteredData.filter((row) => row.state === state);
+      let stateValue = state.property("value");
+      if (stateValue != "") {
+        filteredData = filteredData.filter((row) => row.state === stateValue);
+      }
+      else {
+        values += "Filter State\n"
+      }
     }
     if (country) {
-      country = country.property("value");
-      filteredData = filteredData.filter((row) => row.country === country);
+      let countryValue = country.property("value");
+      if (countryValue != "") {
+        filteredData = filteredData.filter((row) => row.country === countryValue);
+      }
+      else {
+        values += "Filter Country\n"
+      }
     }
     if(shape) {
-      shape = shape.property("value");
-      filteredData = filteredData.filter((row) => row.shape === shape);
+      shapeValue = shape.property("value");
+      if (shapeValue != "") {
+        filteredData = filteredData.filter((row) => row.shape === shapeValue);
+      }
+      else {
+        values += "Filter Shape\n"
+      }
     }
     
+    if (values != "") {
+      alert(missing + "\n" + values);
+    }
+    else {
      // Rebuild the table using the filtered data
     // @NOTE: If no date was entered, then filteredData will
     // just be the original tableData.
-    buildTable(filteredData);
+      buildTable(filteredData);
+    }
   }
 
   function addFilter(field) {
@@ -144,12 +183,21 @@ function buildTable(data) {
     
   }
 
+  function allUnchecked() {
+    chkboxes = getCheckboxes();
+    for (var i=0;i<chkboxes.length;i++){
+      if ( chkboxes[i].checked ) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   function handleCheck() {
     var filterName=null;
 
     src = event.target;
-    console.log(src.id);
-
+  
     switch(src.id) {
       case "chkDate": filterId = "filterByDate"; break;
       case "chkCity": filterId = "filterByCity"; break;

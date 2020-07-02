@@ -35,118 +35,49 @@ function buildTable(data) {
 // None
 function filterTable() {
  
-  // If Date checkbox is checked
-  if (d3.select("#chkDate").property("checked")) {
-    // grab the value in the corresponding text field
-    var date = d3.select("#filterDate"); 
-  }
+  // missing is the header of the alert box that will be displayed if any
+  // of the search text fields are enabled but no value has been specified.
+  let missing = "Missing Values:";
 
-  // If City checkbox is checked
-  if (d3.select("#chkCity").property("checked")) {
-    // grab the value in the corresponding text field
-    var city = d3.select("#filterCity"); 
-  }
-
-  // If State checkbox is checked
-  if (d3.select("#chkState").property("checked")) {
-    // grab the value in the corresponding text field
-    var state = d3.select("#filterState"); 
-  }
-
-  // If Country checkbox is checked
-  if (d3.select("#chkCountry").property("checked")) {
-    // grab the value in the corresponding text field
-    var country = d3.select("#filterCountry"); 
-  }
-
-  // If Shape checkbox is checked
-  if (d3.select("#chkShape").property("checked")) {
-    // grab the value in the corresponding text field
-    var shape = d3.select("#filterShape"); 
-  }
+  // values is the new-line delimited list of empty fields
+  let values = "";
 
   // Initialize filterData to the original data set
   let filteredData = tableData;
 
-  // missing is the header of the alert box that will be displayed if any
-  // of the search text fields are enabled but no value has been specified.
-  let missing = "Missing Values:\n";
+  // Retrieve the Search checkboxes
+  chkboxes = getCheckboxes();
 
-  // values is the new-line delimited list of empty fields
-  let values = "";
-  
-  // Check to see if a date was entered and filter the
-  // data using that date.
-  if (date) {
-    let dateValue = date.property("value");
-    // Apply `filter` to the table data to only keep the
-    // rows where the `datetime` value matches the filter value
-    if (dateValue != "") {
-      filteredData = filteredData.filter(row => row.datetime === dateValue);
-    }
-    else {
-    // If the date text field is empty, add "Filter Date" to the list of 
-    // missing fields
-      values += "Filter Date\n";
-    }
-  }
+  // For each of the checkboxes, do the following
+  chkboxes.forEach((cb) => { 
 
-  // Check to see if a city was entered and filter the
-  // data using that city.
-  if (city) {
-    let cityValue = city.property("value");
-    if (cityValue != "") {
-      filteredData = filteredData.filter((row) => row.city === cityValue);
-    }
-    else {
-    // If the city text field is empty, add "Filter City" to the list of 
-    // missing fields
-      values += "Filter City\n";
-    }
-  }
+    // Initialise the value of the checkbox to ""
+    let val = "";
 
-  // Check to see if a state was entered and filter the 
-  // data using that state.
-  if (state) {
-    let stateValue = state.property("value");
-    if (stateValue != "") {
-      filteredData = filteredData.filter((row) => row.state === stateValue);
-    }
-    else {
-    // If the state text field is empty, add "Filter State" to the list of 
-    // missing fields
-      values += "Filter State\n"
-    }
-  }
+    // If the checkbox is checked
+    if (d3.select("#"+cb.id).property("checked")) {
 
-  // Check to see if a country was entered and filter the
-  // data using that country.
-  if (country) {
-    let countryValue = country.property("value");
-    if (countryValue != "") {
-      filteredData = filteredData.filter((row) => row.country === countryValue);
-    }
-    else {
-    // If the country text field is empty, add "Filter Country" to the list of 
-    // missing fields
-      values += "Filter Country\n";
-    }
-  }
+      // Retrieve the name of the field from the checkbox id
+      let field = cb.id.substring(3,cb.id.length);
 
-  // Check to see if a shape was entered and filter the
-  // data using that shape.
-  if(shape) {
-    shapeValue = shape.property("value");
-    if (shapeValue != "") {
-      filteredData = filteredData.filter((row) => row.shape === shapeValue);
+      // Compose the filterId
+      filterId = "#filter"+ field;
+      
+      // Retrieve the filter and obtain its value property
+      val = d3.select(filterId).property("value");
+      
+      // If the filter value is ""
+      if ( val === "") {
+        // Add it to the list of missing filter values
+        values = values + "\nFilter " + field;
+      }
+      else {
+        // Otherwise, filter the table data accordingly
+        filteredData = filteredData.filter((row) => row[field] === val);
+      }
     }
-    else {
-    // If the shape text field is empty, add "Filter Shape" to the list of 
-    // missing fields
-      values += "Filter Shape\n";
-    }
-  }
-  
+  });
+
   // If empty search text fields were found
   if (values != "") {
     // display alert box showing the user the list of empty fields
@@ -174,24 +105,24 @@ function addFilter(forfield) {
   var labelInnerHTML = ""; // text value to put in the search label
   var listItemId = ""; // ID of the new search item
 
-  listItemId = "filterBy" + forfield;   // set the id of the search item
+  listItemId = "filterby" + forfield;   // set the id of the search item
   labelInnerHTML = "Enter " + forfield; // set the text to put in the search label
   inputId = "filter" + forfield;        // set the id of the search text field
 
   // set the placeholder that is corresponds to the forfield field
-  if ( forfield === "Date") {
+  if ( forfield === "datetime") {
     placeholder = "1/10/2010";
   }
-  else if (forfield === "City") {
+  else if (forfield === "city") {
     placeholder = "london";
   }
-  else if (forfield === "State") {
+  else if (forfield === "state") {
     placeholder = "ca";
   }
-  else if (forfield === "Country") {
+  else if (forfield === "country") {
     placeholder = "us";
   }
-  else if (forfield === "Shape") {
+  else if (forfield === "shape") {
     placeholder = "circle";
   }
 
@@ -257,45 +188,18 @@ function handleCheck() {
   src = event.target;
 
   // Determine the value of "filterId" based on the id of src checkbox
-  switch(src.id) {
-    case "chkDate": filterId = "filterByDate"; break;
-    case "chkCity": filterId = "filterByCity"; break;
-    case "chkState": filterId = "filterByState"; break;
-    case "chkCountry": filterId = "filterByCountry"; break;
-    case "chkShape": filterId = "filterByShape"; break;
-  }
-
+  field = src.id.substring(3,src.id.length);
+  filterId = "filterby" + field;
+  
   // If the checkbox was unchecked
   if (!src.checked) {
-    // Remove the search filter from the available filters
+    // Remove the search filter from the filters group
     d3.select("#filters").select("#g1" + filterId).remove();
   }
   else {
-    // if the Date checkbox was checked
-    if (filterId === "filterByDate") {
-    // Add the Date search filter
-        addFilter("Date");
-    }
-    // if the City checkbox was checked
-    else if (filterId === "filterByCity") {
-    // Add the City search filter
-      addFilter("City");
-    }
-    // if the State checkbox was checked
-    else if (filterId === "filterByState") {
-    // Add the State search filter
-      addFilter("State");
-    }
-    // if the Country checkbox was checked
-    else if (filterId === "filterByCountry") {
-    // Add the Country search filter
-      addFilter("Country");
-    }
-    // if the Shape checkbox was checked
-    else if (filterId === "filterByShape"){
-    // Add the Shape search filter
-      addFilter("Shape");
-    }
+    // Add the corresponding filter to the filters group
+    filter = filterId.substring(8,filterId.length);
+    addFilter(filter);
   }
 }
 
@@ -360,9 +264,7 @@ buildTable(tableData);
 checkboxes.forEach((cb) => cb.checked = false);
 
 // Add an event listener to the "Filter Date" button
-// filterBtn = document.getElementById("filter-btn");
 d3.selectAll("#filter-btn").on("click", filterTable);
 
 // Add an event listener to the "Reset Form" button
-// resetBtn = document.getElementById("reset-btn");
 d3.selectAll("#reset-btn").on("click", resetForm);

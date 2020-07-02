@@ -14,7 +14,7 @@
     <title>UFO Finder</title>
 
 </head>
-<body class="bg-dark">
+<body class="bg-dark" onload="resetForm"> <!-- Reset checkboxes and hide search fields -->
   <div class="wrapper">
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
       <a class="navbar-brand" href="index.html">UFO Sightings</a>
@@ -38,35 +38,39 @@
   <div class='container-fluid'>
     <div class='row'>
       <div class="col-md-3">
-        <form class="bg-dark">
+        <!-- Added onSubmit script to disable page reloading -->
+        <form class="bg-dark" onSubmit="{ return false; }">
+          <!-- Select checkbox to activate corresponding text search -->
           <p>Filter Search</p>
           <div class="row">
             <div class="col-md-2">
-              <input id="chkDate" type="checkbox" class="fil-box">Date</input>
+              <input id="chkDate" type="checkbox" class="fil-box">Date</input>  <!-- Activate search-by-date -->
             </div>
             <div class="col-md-2">
-              <input id="chkCity" type="checkbox" class="fil-box">City</input>
+              <input id="chkCity" type="checkbox" class="fil-box">City</input>  <!-- Activate search-by-city -->
             </div>
             <div class="col-md-2">
-              <input id="chkState" type="checkbox" class="fil-box">State</input>
+              <input id="chkState" type="checkbox" class="fil-box">State</input>  <!-- Activate search-by-state -->
             </div>
             <div class="col-md-3">
-              <input id="chkCountry" type="checkbox" class="fil-box">Country</input>
+              <input id="chkCountry" type="checkbox" class="fil-box">Country</input>  <!-- Activate search-by-country -->
             </div>
             <div class="col-md-2">
-              <input id="chkShape" type="checkbox" class="fil-box">Shape</input>
+              <input id="chkShape" type="checkbox" class="fil-box">Shape</input>  <!-- Activate search-by-shape -->
             </div>
           </div>
           <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-              <button id="filter-btn" type="button" class="btn btn-dark">Filter Data</button>
+              <!-- Search sightings based on specified criteria -->
+              <button id="filter-btn" type="button" class="btn btn-dark">Filter Data</button> 
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <!-- Reset search: Reset filters and reload all sightings -->
               <button id="reset-btn" type="button" class="btn btn-dark">Reset Filters</button>
             </div>
           </div>
           <ul class="bg-dark list-group" id="filters">
-            <!-- filters appear here -->
+            <!-- filter text fields appear here -->
           </ul>
             
         </form>

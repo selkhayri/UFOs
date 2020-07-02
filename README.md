@@ -21,7 +21,7 @@ The functionality that was implemented is as follows:
 
     ![filters](pics/filters.png)
 
-2. When a checkbox is checked, a text box appears with the caption, "Enter <field>", as follows:
+2. When a checkbox is checked, a text box appears with the caption, "Enter &lt;field&gt;", as follows:
 
     ![filters_checked_2](pics/filters_checked_2.png)
 
@@ -43,6 +43,10 @@ The functionality that was implemented is as follows:
 7. If the _Reset Filters_ button is clicked, the table goes back to displaying the entire unfiltered list, the search filter checkboxes are unchecked, and the search fields are removed, as follows:
 
     ![](pics/reset_filters.png)
+
+8. To ensure that no inconsistencies occur, the _body onload_ event handler invokes _resetForm_ to ensure that all users have a fresh start every time they load the search site.
+
+9. Since there is no eventuality in which the search form would be submitted, the onSubmit event handler was set to _{return false;}_ on the &lt;form&gt; tag.
 
 ### Bootstrap Elements
 

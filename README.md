@@ -48,6 +48,13 @@ The functionality that was implemented is as follows:
 
 9. Since there is no eventuality in which the search form would be submitted, the onSubmit event handler was set to _{return false;}_ on the &lt;form&gt; tag.
 
+### Technologies Used
+
+This project was accomplished using the following technologies:
+
+* The Data-Driven Documents JavaScript library, otherwise known as D3, was used for document manipulation, and
+* The Bootstrap CSS library for formatting and presentation of the web interface
+
 ### Bootstrap Elements
 
 The following Bootstrap elements were used in the implementation of this project:

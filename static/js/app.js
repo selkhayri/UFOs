@@ -55,13 +55,13 @@ function filterTable() {
     let val = "";
 
     // If the checkbox is checked
-    if (d3.select("#"+cb.id).property("checked")) {
+    if (d3.select(`#${cb.id}`).property("checked")) {
 
       // Retrieve the name of the field from the checkbox id
       let field = cb.id.substring(3,cb.id.length);
 
       // Compose the filterId
-      filterId = "#filter"+ field;
+      filterId = `#filter${field}`;
       
       // Retrieve the filter and obtain its value property
       val = d3.select(filterId).property("value");
@@ -69,7 +69,7 @@ function filterTable() {
       // If the filter value is ""
       if ( val === "") {
         // Add it to the list of missing filter values
-        values = values + "\nEnter " + field;
+        values = `${values}\nEnter ${field}`;
       }
       else {
         // Otherwise, filter the table data accordingly
@@ -81,7 +81,7 @@ function filterTable() {
   // If empty search text fields were found
   if (values != "") {
     // display alert box showing the user the list of empty fields
-    alert(missing + "\n" + values);
+    alert(`${missing}\n${values}`);
   }
   else {
   // Rebuild the table using the filtered data
@@ -101,13 +101,11 @@ function filterTable() {
 // None
 
 function addFilter(forfield) {
-  var placeholder = ""; // value to place in search field to display expected data format
-  var labelInnerHTML = ""; // text value to put in the search label
-  var listItemId = ""; // ID of the new search item
-
-  listItemId = "filterby" + forfield;   // set the id of the search item
-  labelInnerHTML = "Enter " + forfield; // set the text to put in the search label
-  inputId = "filter" + forfield;        // set the id of the search text field
+  let placeholder = ""; // value to place in search field to display expected data format
+  
+  let listItemId = `filterby${forfield}`;   // set the id of the search item
+  let labelInnerHTML = `Enter ${forfield}`; // set the text to put in the search label
+  let inputId = `filter${forfield}`;        // set the id of the search text field
 
   // set the placeholder that is corresponds to the forfield field
   if ( forfield === "datetime") {
@@ -190,12 +188,12 @@ function handleCheck() {
 
   // Determine the value of "filterId" based on the id of src checkbox
   field = src.id.substring(3,src.id.length);
-  filterId = "filterby" + field;
+  filterId = `filterby${field}`;
   
   // If the checkbox was unchecked
   if (!src.checked) {
     // Remove the search filter from the filters group
-    d3.select("#filters").select("#g1" + filterId).remove();
+    d3.select("#filters").select(`#g1${filterId}`).remove();
   }
   else {
     // Add the corresponding filter to the filters group

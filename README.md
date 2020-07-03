@@ -21,11 +21,11 @@ The functionality that was implemented is as follows:
 
     ![filters](pics/filters.png)
 
-2. When a checkbox is checked, a text box appears with the caption, "Enter &lt;field&gt;", as follows:
+2. When a checkbox is checked, a text cell appears with the caption, "Enter &lt;field&gt;", as follows:
 
     ![filters_checked_2](pics/filters_checked_2.png)
 
-3. When a checkbox is unchecked, the corresponding text box is removed, as follows:
+3. When a checkbox is unchecked, the corresponding text cell is removed, as follows:
 
     ![](pics/filters_unchecked_1.png)
 
@@ -36,7 +36,7 @@ The functionality that was implemented is as follows:
 
 5. If the _Filter Data_ button is clicked but no filters are selected, the entire data set is displayed in the results table.
 
-6. If one or more search fields are displayed but no values are specified, a notice message indicating the missing search values is displayed, as follows:
+6. If search fields are displayed but no values are specified, a notice message indicating the missing search values is displayed, as follows:
 
     ![](pics/missing_filters.png)
 
@@ -46,13 +46,13 @@ The functionality that was implemented is as follows:
 
 8. To ensure that no inconsistencies occur, the _body onload_ event handler invokes _resetForm_ to ensure that all users have a fresh start every time they load the search site.
 
-9. Since there is no eventuality in which the search form would be submitted, the onSubmit event handler was set to _{return false;}_ on the &lt;form&gt; tag.
+9. Since there is no eventuality in which the search form would be submitted, the _submit_ event handler is overridden with a callback function that stops the propagation of the _submit_ event and disables the default behaviour for the search form in the case of a _submit_ event.
 
 ### Technologies Used
 
 This project was accomplished using the following technologies:
 
-* The Data-Driven Documents JavaScript library, otherwise known as D3, was used for document manipulation, and
+* The Data-Driven Documents JavaScript library, otherwise known as D3.js, was used for document manipulation, and
 * The Bootstrap CSS library for formatting and presentation of the web interface
 
 ### Bootstrap Elements

@@ -69,7 +69,7 @@ function filterTable() {
       // If the filter value is ""
       if ( val === "") {
         // Add it to the list of missing filter values
-        values = values + "\nFilter " + field;
+        values = values + "\nEnter " + field;
       }
       else {
         // Otherwise, filter the table data accordingly
@@ -144,7 +144,8 @@ function addFilter(forfield) {
                               .attr("id",inputId)
                               .attr("placeholder",placeholder)
                               .attr("class","btn btn-dark");
-
+  
+  
 }
 
 // allUnchecked()
@@ -264,7 +265,14 @@ buildTable(tableData);
 checkboxes.forEach((cb) => cb.checked = false);
 
 // Add an event listener to the "Filter Date" button
-d3.selectAll("#filter-btn").on("click", filterTable);
+d3.select("#filter-btn").on("click", filterTable);
 
 // Add an event listener to the "Reset Form" button
-d3.selectAll("#reset-btn").on("click", resetForm);
+d3.select("#reset-btn").on("click", resetForm);
+
+// Disable form submission on &lt;return&gt; key
+d3.select("form").on("submit", function() {
+  // prevent form submission
+  d3.event.stopPropagation();
+  d3.event.preventDefault();
+});

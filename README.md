@@ -1,5 +1,8 @@
 # UFOs
+
 Displaying UFO data with JavaScript
+
+![](pics/banner.png)
 
 ## Live Site
 

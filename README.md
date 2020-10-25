@@ -1,6 +1,10 @@
 # UFOs
 Displaying UFO data with JavaScript
 
+## Live Site
+
+https://selkhayri.github.io/UFO/
+
 ## Summary
 
 The purpose of this project was to create a web page which can be used to search through recorded sightings of UFOs. The available information includes the following:
